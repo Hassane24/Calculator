@@ -7,18 +7,22 @@
   display: flex;
   flex-direction: column;
 }
+
 .opsnumscontainer {
   display: flex;
   justify-content: center;
 }
+
 .numbers {
   display: flex;
   flex-direction: column;
 }
+
 .operators {
   display: flex;
   flex-direction: column;
 }
+
 .ops {
-    height: 100%;
+  height: 100%;
 }

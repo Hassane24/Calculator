@@ -1,6 +1,10 @@
 let div_result = document.querySelector(".result");
 const numberButtons = document.querySelectorAll(".numbs");
-console.log(numberButtons);
+const plusButton = document.querySelector(".ops-1");
+const minusButton = document.querySelector(".ops-2");
+const multiplyButton = document.querySelector(".ops-3");
+const devideButton = document.querySelector(".ops-4");
+
 function add(numberOne, numberTwo) {
   return numberOne + numberTwo;
 }
@@ -29,11 +33,28 @@ function operate(numberOne, numberTwo) {
     return console.log(multiply(numberOne, numberTwo));
   return console.log(devide(numberOne, numberTwo));
 }
-let storage = "";
+
+let numberOne = "";
 
 for (let i = 0; i < numberButtons.length; i++) {
   numberButtons[i].addEventListener("click", () => {
-    div_result.innerText = i.toString() + storage.toString();
-    storage = div_result.innerText.toString();
+    div_result.innerText = numberOne.toString() + i.toString();
+    numberOne = div_result.innerText.toString();
+    return numberOne;
   });
 }
+plusButton.addEventListener("click", () => {
+  div_result.innerText = numberOne + "+";
+});
+
+minusButton.addEventListener("click", () => {
+  div_result.innerText = numberOne + "-";
+});
+
+multiplyButton.addEventListener("click", () => {
+  div_result.innerText = numberOne + "*";
+});
+
+devideButton.addEventListener("click", () => {
+  div_result.innerText = numberOne + "/";
+});
