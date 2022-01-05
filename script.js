@@ -1,6 +1,7 @@
 let div_result = document.querySelector(".result");
 const numberButtons = document.querySelectorAll(".numbs");
 const operators = document.querySelectorAll(".ops");
+const clearButton = document.querySelector(".clear");
 
 function add(numberOne, numberTwo) {
   return numberOne + numberTwo;
@@ -21,10 +22,10 @@ function devide(numberOne, numberTwo) {
 function operate(numberOne, numberTwo) {
   numberOne = Number(numberOne);
   numberTwo = Number(numberTwo);
-  if (operator == "+") return console.log(add(numberOne, numberTwo));
-  if (operator == "-") return console.log(substract(numberOne, numberTwo));
-  if (operator == "*") return console.log(multiply(numberOne, numberTwo));
-  if (operator == "/") return console.log(devide(numberOne, numberTwo));
+  if (operator == "+") return add(numberOne, numberTwo);
+  if (operator == "-") return substract(numberOne, numberTwo);
+  if (operator == "*") return multiply(numberOne, numberTwo);
+  if (operator == "/") return devide(numberOne, numberTwo);
 }
 
 let numberOne = "";
@@ -51,6 +52,7 @@ operators.forEach((ops) => {
     }
     if (e.target.innerText == "=") {
       operate(numberOne, numberTwo);
+      div_result.innerText = operate(numberOne, numberTwo);
     }
   });
 });
@@ -66,4 +68,13 @@ numberButtons.forEach((numbs) => {
         numberOne.toString() + operator + numberTwo.toString();
     }
   });
+});
+
+clearButton.addEventListener("click", (e) => {
+  if (e.target.innerText === "clear") {
+    div_result.innerText = "";
+    numberOne = "";
+    numberTwo = "";
+    operator = "";
+  }
 });
