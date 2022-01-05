@@ -1,4 +1,5 @@
-let div_result = document.querySelector(".result");
+let currentOperand = document.querySelector(".current-operand");
+let previousOperand = document.querySelector(".previous-operand");
 const numberButtons = document.querySelectorAll(".numbs");
 const operators = document.querySelectorAll(".ops");
 const clearButton = document.querySelector(".clear");
@@ -35,24 +36,24 @@ let operator = "";
 operators.forEach((ops) => {
   ops.addEventListener("click", (e) => {
     if (e.target.innerText == "+") {
-      div_result.innerText += "+";
+      currentOperand.innerText += "+";
       operator = "+";
     }
     if (e.target.innerText == "-") {
-      div_result.innerText += "-";
+      currentOperand.innerText += "-";
       operator = "-";
     }
     if (e.target.innerText == "*") {
-      div_result.innerText += "*";
+      currentOperand.innerText += "*";
       operator = "*";
     }
     if (e.target.innerText == "/") {
-      div_result.innerText += "/";
+      currentOperand.innerText += "/";
       operator = "/";
     }
     if (e.target.innerText == "=") {
       operate(numberOne, numberTwo);
-      div_result.innerText = operate(numberOne, numberTwo);
+      currentOperand.innerText = operate(numberOne, numberTwo);
     }
   });
 });
@@ -61,18 +62,18 @@ numberButtons.forEach((numbs) => {
   numbs.addEventListener("click", (e) => {
     if (operator === "") {
       numberOne += e.target.innerText;
-      div_result.innerText = numberOne.toString();
+      currentOperand.innerText = numberOne.toString();
     } else {
       numberTwo += e.target.innerText;
-      div_result.innerText =
+      currentOperand.innerText =
         numberOne.toString() + operator + numberTwo.toString();
     }
   });
 });
 
 clearButton.addEventListener("click", (e) => {
-  if (e.target.innerText === "clear") {
-    div_result.innerText = "";
+  if (e.target.innerText === "AC") {
+    currentOperand.innerText = "";
     numberOne = "";
     numberTwo = "";
     operator = "";
