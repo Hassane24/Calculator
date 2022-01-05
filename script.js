@@ -38,22 +38,31 @@ operators.forEach((ops) => {
     if (e.target.innerText == "+") {
       currentOperand.innerText += "+";
       operator = "+";
+      previousOperand.innerText = currentOperand.innerText;
+      currentOperand.innerText = "";
     }
     if (e.target.innerText == "-") {
       currentOperand.innerText += "-";
       operator = "-";
+      previousOperand.innerText = currentOperand.innerText;
+      currentOperand.innerText = "";
     }
     if (e.target.innerText == "*") {
       currentOperand.innerText += "*";
       operator = "*";
+      previousOperand.textContent = currentOperand.innerText;
+      currentOperand.textContent = "";
     }
     if (e.target.innerText == "/") {
       currentOperand.innerText += "/";
       operator = "/";
+      previousOperand.innerText = currentOperand.innerText;
+      currentOperand.innerText = "";
     }
     if (e.target.innerText == "=") {
       operate(numberOne, numberTwo);
       currentOperand.innerText = operate(numberOne, numberTwo);
+      previousOperand.innerText = "";
     }
   });
 });
@@ -65,8 +74,7 @@ numberButtons.forEach((numbs) => {
       currentOperand.innerText = numberOne.toString();
     } else {
       numberTwo += e.target.innerText;
-      currentOperand.innerText =
-        numberOne.toString() + operator + numberTwo.toString();
+      currentOperand.innerText = numberTwo.toString();
     }
   });
 });
@@ -74,6 +82,7 @@ numberButtons.forEach((numbs) => {
 clearButton.addEventListener("click", (e) => {
   if (e.target.innerText === "AC") {
     currentOperand.innerText = "";
+    previousOperand.textContent = "";
     numberOne = "";
     numberTwo = "";
     operator = "";
