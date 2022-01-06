@@ -3,6 +3,8 @@ let previousOperand = document.querySelector(".previous-operand");
 const numberButtons = document.querySelectorAll(".numbs");
 const operators = document.querySelectorAll(".ops");
 const clearButton = document.querySelector(".clear");
+const delButton = document.querySelector(".DEL");
+const decimalButton = document.querySelector(".decimal");
 
 function add(numberOne, numberTwo) {
   return numberOne + numberTwo;
@@ -40,28 +42,36 @@ operators.forEach((ops) => {
       operator = "+";
       previousOperand.innerText = currentOperand.innerText;
       currentOperand.innerText = "";
+      numberTwo = "";
     }
+
     if (e.target.innerText == "-") {
       currentOperand.innerText += "-";
       operator = "-";
       previousOperand.innerText = currentOperand.innerText;
       currentOperand.innerText = "";
+      numberTwo = "";
     }
+
     if (e.target.innerText == "*") {
       currentOperand.innerText += "*";
       operator = "*";
       previousOperand.textContent = currentOperand.innerText;
       currentOperand.textContent = "";
+      numberTwo = "";
     }
+
     if (e.target.innerText == "/") {
       currentOperand.innerText += "/";
       operator = "/";
       previousOperand.innerText = currentOperand.innerText;
       currentOperand.innerText = "";
+      numberTwo = "";
     }
+
     if (e.target.innerText == "=") {
-      operate(numberOne, numberTwo);
-      currentOperand.innerText = operate(numberOne, numberTwo);
+      numberOne = operate(numberOne, numberTwo);
+      currentOperand.innerText = numberOne;
       previousOperand.innerText = "";
     }
   });
@@ -71,10 +81,10 @@ numberButtons.forEach((numbs) => {
   numbs.addEventListener("click", (e) => {
     if (operator === "") {
       numberOne += e.target.innerText;
-      currentOperand.innerText = numberOne.toString();
+      currentOperand.innerText = numberOne;
     } else {
       numberTwo += e.target.innerText;
-      currentOperand.innerText = numberTwo.toString();
+      currentOperand.innerText = numberTwo;
     }
   });
 });
