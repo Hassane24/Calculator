@@ -1,100 +1,111 @@
 let currentOperand = document.querySelector(".current-operand");
 let previousOperand = document.querySelector(".previous-operand");
+let numberOne = "";
+let numberTwo = "";
+let currentOperator = "";
+let reset_Screen = false;
+
 const numberButtons = document.querySelectorAll(".numbs");
 const operators = document.querySelectorAll(".ops");
 const clearButton = document.querySelector(".clear");
 const delButton = document.querySelector(".DEL");
+const equalsButton = document.querySelector(".eq");
+console.log(equalsButton);
 const decimalButton = document.querySelector(".decimal");
 
-function add(numberOne, numberTwo) {
-  return numberOne + numberTwo;
+function add(a, b) {
+  return a + b;
 }
 
-function substract(numberOne, numberTwo) {
-  return numberOne - numberTwo;
+function substract(a, b) {
+  return a - b;
 }
 
-function multiply(numberOne, numberTwo) {
-  return numberOne * numberTwo;
+function multiply(a, b) {
+  return a * b;
 }
 
-function devide(numberOne, numberTwo) {
-  return numberOne / numberTwo;
+function devide(a, b) {
+  return a / b;
 }
 
-function operate(numberOne, numberTwo) {
-  numberOne = Number(numberOne);
-  numberTwo = Number(numberTwo);
-  if (operator == "+") return add(numberOne, numberTwo);
-  if (operator == "-") return substract(numberOne, numberTwo);
-  if (operator == "*") return multiply(numberOne, numberTwo);
-  if (operator == "/") return devide(numberOne, numberTwo);
+function operate(a, b) {
+  a = Number(a);
+  b = Number(b);
+  if (currentOperator == "+") return add(a, b);
+  if (currentOperator == "-") return substract(a, b);
+  if (currentOperator == "*") return multiply(a, b);
+  if (currentOperator == "/") return devide(a, b);
 }
 
-let numberOne = "";
-let numberTwo = "";
-let operator = "";
+clearButton.addEventListener("click", allClear);
+delButton.addEventListener("click", goBackInTime);
+decimalButton.addEventListener("click", addPointToDisplay);
+equalsButton.addEventListener("click", evaluate);
+
+numberButtons.forEach((number) => {
+  number.addEventListener("click", () =>
+    addNumbersToDisplay(number.textContent)
+  );
+});
 
 operators.forEach((ops) => {
-  ops.addEventListener("click", (e) => {
-    if (e.target.innerText == "+") {
-      currentOperand.innerText += "+";
-      operator = "+";
-      previousOperand.innerText = currentOperand.innerText;
-      currentOperand.innerText = "";
-      numberTwo = "";
-    }
-
-    if (e.target.innerText == "-") {
-      currentOperand.innerText += "-";
-      operator = "-";
-      previousOperand.innerText = currentOperand.innerText;
-      currentOperand.innerText = "";
-      numberTwo = "";
-    }
-
-    if (e.target.innerText == "*") {
-      currentOperand.innerText += "*";
-      operator = "*";
-      previousOperand.textContent = currentOperand.innerText;
-      currentOperand.textContent = "";
-      numberTwo = "";
-    }
-
-    if (e.target.innerText == "/") {
-      currentOperand.innerText += "/";
-      operator = "/";
-      previousOperand.innerText = currentOperand.innerText;
-      currentOperand.innerText = "";
-      numberTwo = "";
-    }
-
-    if (e.target.innerText == "=") {
-      numberOne = operate(numberOne, numberTwo);
-      currentOperand.innerText = numberOne;
-      previousOperand.innerText = "";
-    }
-  });
+  ops.addEventListener("click", () => addAndChooseOperation(ops.textContent));
 });
 
-numberButtons.forEach((numbs) => {
-  numbs.addEventListener("click", (e) => {
-    if (operator === "") {
-      numberOne += e.target.innerText;
-      currentOperand.innerText = numberOne;
-    } else {
-      numberTwo += e.target.innerText;
-      currentOperand.innerText = numberTwo;
-    }
-  });
-});
+function addNumbersToDisplay(number) {
+  if (currentOperand.textContent === "0" || reset_Screen) resetScreen();
+  currentOperand.textContent += number;
+}
 
-clearButton.addEventListener("click", (e) => {
-  if (e.target.innerText === "AC") {
-    currentOperand.innerText = "";
-    previousOperand.textContent = "";
-    numberOne = "";
-    numberTwo = "";
-    operator = "";
+function addAndChooseOperation(operator) {
+  if (currentOperator !== "") evaluate();
+  numberOne = currentOperand.textContent;
+  currentOperator = operator;
+  previousOperand.textContent = numberOne + currentOperator;
+  currentOperand.textContent = "";
+  console.log("numberone=", numberOne);
+  console.log(currentOperator);
+}
+
+function allClear() {
+  currentOperand.textContent = "0";
+  previousOperand.textContent = "";
+  numberOne = "";
+  numberTwo = "";
+  currentOperator = "";
+}
+
+function goBackInTime() {
+  currentOperand.textContent = currentOperand.textContent
+    .toString()
+    .slice(0, -1);
+}
+
+function addPointToDisplay() {
+  if (reset_Screen) resetScreen();
+  if (currentOperand.textContent == "") currentOperand.textContent = "0";
+  if (currentOperand.textContent.includes(".")) return;
+  currentOperand.textContent += ".";
+}
+
+function evaluate() {
+  if (currentOperator === "" || reset_Screen) return;
+  if (currentOperator === "/" && currentOperand.textContent === "0") {
+    alert("ERROR!!");
+    return;
   }
-});
+  numberTwo = currentOperand.textContent;
+  currentOperand.textContent = rounded(operate(numberOne, numberTwo));
+  previousOperand.textContent = numberOne + currentOperator + numberTwo + "=";
+  currentOperator = "";
+}
+
+function rounded(number) {
+  return Math.round(number * 1000) / 1000;
+}
+
+function resetScreen() {
+  currentOperand.textContent = "";
+  reset_Screen = false;
+}
