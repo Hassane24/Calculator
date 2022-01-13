@@ -10,33 +10,7 @@ const operators = document.querySelectorAll(".ops");
 const clearButton = document.querySelector(".clear");
 const delButton = document.querySelector(".DEL");
 const equalsButton = document.querySelector(".eq");
-console.log(equalsButton);
 const decimalButton = document.querySelector(".decimal");
-
-function add(a, b) {
-  return a + b;
-}
-
-function substract(a, b) {
-  return a - b;
-}
-
-function multiply(a, b) {
-  return a * b;
-}
-
-function devide(a, b) {
-  return a / b;
-}
-
-function operate(a, b) {
-  a = Number(a);
-  b = Number(b);
-  if (currentOperator == "+") return add(a, b);
-  if (currentOperator == "-") return substract(a, b);
-  if (currentOperator == "*") return multiply(a, b);
-  if (currentOperator == "/") return devide(a, b);
-}
 
 clearButton.addEventListener("click", allClear);
 delButton.addEventListener("click", goBackInTime);
@@ -64,8 +38,6 @@ function addAndChooseOperation(operator) {
   currentOperator = operator;
   previousOperand.textContent = numberOne + currentOperator;
   currentOperand.textContent = "";
-  console.log("numberone=", numberOne);
-  console.log(currentOperator);
 }
 
 function allClear() {
@@ -108,4 +80,29 @@ function rounded(number) {
 function resetScreen() {
   currentOperand.textContent = "";
   reset_Screen = false;
+}
+
+function add(a, b) {
+  return a + b;
+}
+
+function substract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function devide(a, b) {
+  return a / b;
+}
+
+function operate(a, b) {
+  a = Number(a);
+  b = Number(b);
+  if (currentOperator == "+") return add(a, b);
+  if (currentOperator == "-") return substract(a, b);
+  if (currentOperator == "*") return multiply(a, b);
+  if (currentOperator == "/") return devide(a, b);
 }
